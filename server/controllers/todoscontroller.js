@@ -32,7 +32,7 @@ class Todos {
         if (data) {
           res.status(200).json({ data });
         } else {
-          res.status(404).json({ message: "Error, not found" });
+          res.status(404).json({ message: "Error, data not found" });
         }
       })
       .catch(err => {
@@ -52,7 +52,7 @@ class Todos {
             { where: { id: req.params.id } }
           );
         } else {
-          res.status(404).json({ message: "Error, not found" });
+          res.status(404).json({ message: "Error, data not found" });
         }
       })
       .then(data => {
@@ -75,7 +75,7 @@ class Todos {
           todo = data;
           return Todo.destroy({ where: { id: req.params.id } });
         } else {
-          res.status(404).json({ message: "Error, not found" });
+          res.status(404).json({ message: "Error, data not found" });
         }
       })
       .then(data => {
