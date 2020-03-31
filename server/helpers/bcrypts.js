@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
+const saltRounds = 8;
 
 function hashPassword(password) {
   try {
@@ -13,7 +13,7 @@ function hashPassword(password) {
 
 function checkPassword(password, hashPwd) {
   try {
-    return bcrypt.compareSync(password, hashPassword);
+    return bcrypt.compareSync(password, hashPwd);
   } catch (error) {
     console.log(error);
   }
