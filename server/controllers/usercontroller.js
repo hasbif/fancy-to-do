@@ -5,6 +5,7 @@ const { checkPassword, hashPassword } = require("../helpers/bcrypts");
 class UserController {
   static register(req, res) {
     let { email, password, role } = req.body;
+
     User.create({ email, password, role })
       .then(user => {
         const token = jwt.sign(
