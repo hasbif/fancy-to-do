@@ -2,7 +2,7 @@ const { Todo } = require("../models");
 
 class Todos {
   static show(req, res) {
-    Todo.findAll({})
+    Todo.findAll({ where: { UserId: req.userId } })
       .then(data => {
         res.status(200).json({ todos: data });
       })
@@ -13,7 +13,10 @@ class Todos {
 
   static add(req, res) {
     let { title, description, status, due_date } = req.body;
-    Todo.create({ title, description, status, due_date }, {})
+    Todo.create(
+      { title, description, status, due_date, UserId: req.userId },
+      {}
+    )
       .then(data => {
         res.status(201).json({ data });
       })
