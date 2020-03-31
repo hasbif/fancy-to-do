@@ -1,6 +1,9 @@
 const express = require("express");
 const route = express.Router();
 const todos = require("./todoroutes");
+const UserController = require("../controllers/usercontroller");
+
+route.post("/register", UserController.register);
 
 route.get("/", (req, res) => {
   res.send("hi");
