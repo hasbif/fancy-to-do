@@ -14,56 +14,34 @@ class Todos {
 
   static add(req, res) {
     let { title, description, status, due_date } = req.body;
-    let spellcheck;
 
-    //   Promise.all([axios({
-    //     method: "GET",
-    //     url: "https://montanaflynn-spellcheck.p.rapidapi.com/check/",
-    //     headers: {
-    //       "content-type": "application/octet-stream",
-    //       "x-rapidapi-host": "montanaflynn-spellcheck.p.rapidapi.com",
-    //       "x-rapidapi-key": "21eedf4d07msha5d52bf1a701aa8p19733bjsn8fa2554194df"
-    //     },
-    //     params: {
-    //       text: description
-    //     }
-    //   }),
-    // ])
-
-    axios({
-      method: "GET",
-      url: "https://montanaflynn-spellcheck.p.rapidapi.com/check/",
-      headers: {
-        "content-type": "application/octet-stream",
-        "x-rapidapi-host": "montanaflynn-spellcheck.p.rapidapi.com",
-        "x-rapidapi-key": "21eedf4d07msha5d52bf1a701aa8p19733bjsn8fa2554194df"
-      },
-      params: {
-        text: description
-      }
-    })
-      .then(response => {
-        spellcheck = response.data;
-        return Todo.create(
-          { title, description, status, due_date, UserId: req.userId },
-          {}
-        );
-      })
-      .then(data => {
-        res.status(201).json({ data, spellcheck });
-      })
-      .catch(err => {
-        if (err.name == "SequelizeValidationError") {
-          res.status(400).json(err);
-        } else {
-          res.status(500).json(err);
-        }
-        console.log(err);
-      });
-
-    // Todo.create({ title, description, status, due_date, UserId: req.userId },{})
+    // axios({
+    //   method: "GET",
+    //   url: "https://montanaflynn-spellcheck.p.rapidapi.com/check/",
+    //   headers: {
+    //     "content-type": "application/octet-stream",
+    //     "x-rapidapi-host": "montanaflynn-spellcheck.p.rapidapi.com",
+    //     "x-rapidapi-key": "21eedf4d07msha5d52bf1a701aa8p19733bjsn8fa2554194df"
+    //   },
+    //   params: {
+    //     text: description
+    //   }
+    // })
+    //   .then(response => {
+    //     spellcheck = response.data;
+    //     return Todo.create(
+    //       {
+    //         title,
+    //         description,
+    //         status: "not done",
+    //         due_date,
+    //         UserId: req.userId
+    //       },
+    //       {}
+    //     );
+    //   })
     //   .then(data => {
-    //     res.status(201).json({ data });
+    //     res.status(201).json({ data, spellcheck });
     //   })
     //   .catch(err => {
     //     if (err.name == "SequelizeValidationError") {
@@ -71,7 +49,52 @@ class Todos {
     //     } else {
     //       res.status(500).json(err);
     //     }
+    //     console.log(err);
     //   });
+
+    Todo.create(
+      { title, description, status: "not done", due_date, UserId: req.userId },
+      {}
+    )
+      .then(data => {
+        res.status(201).json({ data });
+      })
+      .catch(err => {
+        if (err.name == "SequelizeValidationError") {
+          res.status(400).json(err);
+        } else {
+          res.status(500).json(err);
+        }
+      });
+  }
+
+  static checkdescription(req, res) {
+    let description = req.body.description;
+    let spellcheck;
+    console.log(description);
+    if (description) {
+      axios({
+        method: "GET",
+        url: "https://montanaflynn-spellcheck.p.rapidapi.com/check/",
+        headers: {
+          "content-type": "application/octet-stream",
+          "x-rapidapi-host": "montanaflynn-spellcheck.p.rapidapi.com",
+          "x-rapidapi-key": process.env.SPELLAPI
+        },
+        params: {
+          text: description
+        }
+      })
+        .then(response => {
+          spellcheck = response.data;
+          res.status(200).json({ spellcheck });
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        });
+    } else {
+      res.status(400).json({ message: "description is empty" });
+    }
   }
 
   static getbyId(req, res) {
@@ -90,11 +113,12 @@ class Todos {
 
   static edit(req, res) {
     let { title, description, status, due_date } = req.body;
+    console.log(req.body);
     let todo;
     Todo.findByPk(req.params.id)
       .then(data => {
         if (data) {
-          todo = data;
+          // todo = data;
           return Todo.update(
             { title, description, status, due_date },
             { where: { id: req.params.id } }
@@ -104,7 +128,11 @@ class Todos {
         }
       })
       .then(data => {
-        res.status(200).json({ todo });
+        if (data == 1) {
+          res.status(200).json({ title, description, status, due_date });
+        } else {
+          res.status(400).json({ message: "failed to update data" });
+        }
       })
       .catch(err => {
         if (err.name == "SequelizeValidationError") {

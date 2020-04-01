@@ -11,4 +11,5 @@ route.post("/", controller.add);
 route.get("/:id", authorization, controller.getbyId);
 route.put("/:id", authorization, controller.edit);
 route.delete("/:id", authorization, controller.delete);
+route.post("/spellcheck", controller.checkdescription);
 module.exports = route;

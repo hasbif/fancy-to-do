@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
-      role: {
+      username: {
         type: DataTypes.STRING,
         validate: {
           notEmpty: {
-            msg: "Role cannot be empty"
+            msg: "User cannot be empty"
           }
         }
       }

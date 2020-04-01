@@ -4,18 +4,18 @@ const { checkPassword, hashPassword } = require("../helpers/bcrypts");
 
 class UserController {
   static register(req, res) {
-    let { email, password, role } = req.body;
+    let { email, password, username } = req.body;
 
-    User.create({ email, password, role })
+    User.create({ email, password, username })
       .then(user => {
-        const token = jwt.sign(
+        const access_token = jwt.sign(
           {
             userId: user.id,
             userEmail: user.email
           },
-          "corona"
+          process.env.SECRET
         );
-        res.status(201).json({ token });
+        res.status(201).json({ access_token });
       })
       .catch(err => {
         res.status(500).json({ msg: "internal server error", err });
@@ -28,14 +28,14 @@ class UserController {
       let message = "email/password invalid";
       if (user) {
         if (checkPassword(password, user.password)) {
-          const token = jwt.sign(
+          const access_token = jwt.sign(
             {
               userId: user.id,
               userEmail: user.email
             },
-            "corona"
+            process.env.SECRET
           );
-          res.status(200).json({ token });
+          res.status(200).json({ access_token });
         } else {
           res.status(400).json({ message });
         }
