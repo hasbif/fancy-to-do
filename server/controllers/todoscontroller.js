@@ -3,7 +3,7 @@ const axios = require("axios");
 
 class Todos {
   static show(req, res) {
-    Todo.findAll({ where: { UserId: req.userId } })
+    Todo.findAll({ where: { UserId: req.userId }, order: [['id', 'ASC']] })
       .then(data => {
         res.status(200).json({ todos: data });
       })
@@ -53,7 +53,7 @@ class Todos {
     //   });
 
     Todo.create(
-      { title, description, status: "not done", due_date, UserId: req.userId },
+      { title, description, status: "0%", due_date, UserId: req.userId },
       {}
     )
       .then(data => {

@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="main.js"></script>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/litera/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-pLgJ8jZ4aoPja/9zBSujjzs7QbkTKvKw1+zfKuumQF9U+TH3xv09UUsRI52fS+A6"
+      crossorigin="anonymous"
+    />
     <title>Document</title>
   </head>
   <body>
@@ -21,7 +27,7 @@
       <button id="toggleadd">Add Task</button>
     </div>
 
-    <form id="registerform">
+    <!-- <form id="registerform">
       <label>Email</label>
       <input type="text" name="email" id="emailreg" />
       <label>Username</label>
@@ -29,28 +35,99 @@
       <label>Password</label>
       <input type="text" name="password" id="passwordreg" />
       <button type="submit">Register</button>
+    </form> -->
+
+    <form id="registerform">
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="emailreg"
+          aria-describedby="emailHelp"
+        />
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" id="userreg" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" id="passwordreg" />
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
     </form>
 
-    <form id="signinform">
+    <!-- <form id="signinform">
       <label>Email</label>
       <input type="text" name="email" id="emailinput" />
       <label>Password</label>
       <input type="text" name="password" id="passwordinput" />
       <button type="submit">Sign In</button>
+    </form> -->
+
+    <form id="signinform">
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="emailinput"
+          aria-describedby="emailHelp"
+        />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" id="passwordinput" />
+      </div>
+      <button type="submit" class="btn btn-primary">Sign In</button>
     </form>
 
     <form id="addform">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" id="titleinput" />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" class="form-control" id="descinput" />
+      </div>
+      <div class="form-group">
+        <label>Due Date</label>
+        <input type="date" class="form-control" id="dateinput" />
+      </div>
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+
+    <!-- <form id="editform">
+        <label>Title</label>
+        <input type="text" name="title" id="titleupt" value="${todo.title}"/>
+        <label>Description</label>
+        <input type="text" name="description" id="descupt" value="${
+          todo.description
+        }"/>
+        <label>Status</label>
+        <input type="text" name="status" id="statusupt" value="${todo.status}"/>
+        <label>Due Date</label>
+        <input type="date" name="date" id="dateupt" value="${todo.due_date.slice(
+          0,
+          10
+        )}"/>
+        <button id="submitupdate" value="${todo.id}" >Edit</button>
+      </form> -->
+
+    <!-- <form id="addform">
       <label>Title</label>
       <input type="text" name="title" id="titleinput" />
       <label>Description</label>
       <input type="text" name="description" id="descinput" />
       <label>Due Date</label>
-      <input type="text" name="date" id="dateinput" />
+      <input type="date" name="date" id="dateinput" />
       <button type="submit">Add</button>
-    </form>
+    </form> -->
 
     <div id="editdiv"></div>
 
-    <table style="width:100%" id="todotable"></table>
+    <table class="table" id="todotable"></table>
   </body>
 </html>
