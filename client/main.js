@@ -80,10 +80,42 @@ $(document).ready(function() {
         $("#passwordinput").val("");
         localStorage.setItem("access_token", response.access_token);
         $("#message").text("Successfuly Signed In");
+        getlist();
       })
       .fail(err => {
         console.log(err);
         $("#message").text(err.responseJSON.message);
       });
   });
+
+  //let token = localStorage.getItem('access_token')
+  function getlist() {
+    $.ajax({
+      url: "http://localhost:3000/todos",
+      type: "GET",
+      headers: {
+        access_token: localStorage.getItem("access_token")
+      }
+    })
+      .done(result => {
+        console.log(result);
+        let data = result.todos;
+        for (let i in data) {
+          $("#todotable").append(
+            `<tr>
+                  <td>${data[i].title}</td>
+                  <td>${data[i].description}</td>
+                  <td>${data[i].status}</td>
+                  <td>${data[i].due_date}</td>
+                </tr>`
+          );
+        }
+      })
+      .fail(err => {
+        console.log(err);
+        $("#message").text(err.responseJSON.message);
+      });
+  }
+
+  //function checkToken()
 });
