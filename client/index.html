@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="google-signin-client_id"
+      content="666049061231-8ok5p9b67anl89i2ug961e2hsd1k3id0.apps.googleusercontent.com"
+    />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="main.js"></script>
     <link
@@ -11,21 +16,49 @@
       integrity="sha384-pLgJ8jZ4aoPja/9zBSujjzs7QbkTKvKw1+zfKuumQF9U+TH3xv09UUsRI52fS+A6"
       crossorigin="anonymous"
     />
+
     <title>Document</title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">ToDo List</a>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <div id="buttonloggedin">
+              <a id="toggleadd" style="cursor: pointer;">Add Task</a>
+              <!-- <a id="togglelogout" style="cursor: pointer;">Log Out</a> -->
+              <a id="togglelogout" href="#" onclick="signOut();">Sign out</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div id="buttonloggedout">
+              <a id="toggleregister" style="cursor: pointer;">Register</a>
+              <a id="togglesignin" style="cursor: pointer;">Sign In</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div
+        id="buttonloggedoutgoogle"
+        class="g-signin2"
+        data-onsuccess="onSignIn"
+      ></div>
+    </nav>
+
     <h1>ToDo list</h1>
     <p>Welcome</p>
     <p id="message"></p>
 
-    <div id="buttonloggedout">
+    <!-- <div id="buttonloggedout">
       <button id="toggleregister">Register</button>
       <button id="togglesignin">Sign In</button>
     </div>
     <div id="buttonloggedin">
       <button id="togglelogout">Log Out</button>
       <button id="toggleadd">Add Task</button>
-    </div>
+    </div> -->
 
     <!-- <form id="registerform">
       <label>Email</label>
@@ -129,5 +162,39 @@
     <div id="editdiv"></div>
 
     <table class="table" id="todotable"></table>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function onSignIn(googleUser) {
+        var id_token = googleUser.getAuthResponse().id_token;
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:3000/google-sign-in",
+          data: {
+            token: id_token
+          },
+          statusCode: {
+            200: function(response) {
+              console.log(response);
+              localStorage.setItem("access_token", response.access_token);
+              refreshPage();
+              $("#message").text("Successfuly Signed In");
+            }
+          }
+        });
+      }
+
+      function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function() {
+          console.log("User signed out.");
+          refreshPage();
+        });
+      }
+    </script>
   </body>
 </html>

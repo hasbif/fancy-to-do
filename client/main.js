@@ -196,47 +196,7 @@ $(document).ready(function () {
             });
     });
 
-    //get todos
-    function getlist() {
-        $.ajax({
-            url: "http://localhost:3000/todos",
-            type: "GET",
-            headers: {
-                access_token: localStorage.getItem("access_token")
-            }
-        })
-            .done(result => {
-                $("#todotable").html(`<thead class="thead-dark">
-                                        <tr>
-                                        <th scope="col">Task</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Due Date</th>
-                                        <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>`);
-                let data = result.todos;
-                for (let i in data) {
-                    let date = new Date(data[i].due_date);
-                    $("#todotable").append(
-                        `<tr class="todolist">
-                        <td scope="row">${data[i].title}</td>
-                        <td>${data[i].description}</td>
-                        <td>${data[i].status}</td>
-                        <td>${date.toLocaleDateString()}</td>
-                        <td>
-                        <button id="editbutton" value="${data[i].id}">Edit</button>
-                        <button id="deletebutton" value="${data[i].id}">Delete</button>
-                        </td>
-                        </tr>`
-                    );
-                }
-            })
-            .fail(err => {
-                console.log(err);
-                $("#message").text(err.responseJSON.message);
-            });
-    }
+
 
     // add todo
 
@@ -274,23 +234,69 @@ $(document).ready(function () {
     //     selected = $(this);
     //   });
 
-    function refreshPage() {
-        if (localStorage.getItem("access_token")) {
-            $("#buttonloggedin").show();
-            $("#buttonloggedout").hide();
-            $("#todotable").show();
-            getlist();
-            formsighidden = true;
-            formreghidden = true;
-        } else {
-            $("#buttonloggedout").show();
-            $("#buttonloggedin").hide();
-            $("#todotable").hide();
-        }
-        $("#registerform").hide();
-        $("#signinform").hide();
-        $("#addform").hide();
-        $("#editdiv").html("");
-        //selected = null;
-    }
+
 });
+
+function refreshPage() {
+    if (localStorage.getItem("access_token")) {
+        $("#buttonloggedin").show();
+        $("#buttonloggedout").hide();
+        $('#buttonloggedoutgoogle').hide();
+        $("#todotable").show();
+        getlist();
+        formsighidden = true;
+        formreghidden = true;
+    } else {
+        $("#buttonloggedout").show();
+        $('#buttonloggedoutgoogle').show();
+        $("#buttonloggedin").hide();
+        $("#todotable").hide();
+    }
+    $("#registerform").hide();
+    $("#signinform").hide();
+    $("#addform").hide();
+    $("#editdiv").html("");
+    //selected = null;
+}
+
+//get todos
+function getlist() {
+    $.ajax({
+        url: "http://localhost:3000/todos",
+        type: "GET",
+        headers: {
+            access_token: localStorage.getItem("access_token")
+        }
+    })
+        .done(result => {
+            $("#todotable").html(`<thead class="thead-dark">
+                                    <tr>
+                                    <th scope="col">Task</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Due Date</th>
+                                    <th scope="col">Action</th>
+                                    </tr>
+                                </thead>`);
+            let data = result.todos;
+            for (let i in data) {
+                let date = new Date(data[i].due_date);
+                $("#todotable").append(
+                    `<tr class="todolist">
+                    <td scope="row">${data[i].title}</td>
+                    <td>${data[i].description}</td>
+                    <td>${data[i].status}</td>
+                    <td>${date.toLocaleDateString()}</td>
+                    <td>
+                    <button id="editbutton" value="${data[i].id}">Edit</button>
+                    <button id="deletebutton" value="${data[i].id}">Delete</button>
+                    </td>
+                    </tr>`
+                );
+            }
+        })
+        .fail(err => {
+            console.log(err);
+            $("#message").text(err.responseJSON.message);
+        });
+}
