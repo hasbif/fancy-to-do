@@ -1,57 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="google-signin-client_id"
-      content="666049061231-8ok5p9b67anl89i2ug961e2hsd1k3id0.apps.googleusercontent.com"
-    />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="main.js"></script>
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/litera/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-pLgJ8jZ4aoPja/9zBSujjzs7QbkTKvKw1+zfKuumQF9U+TH3xv09UUsRI52fS+A6"
-      crossorigin="anonymous"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-signin-client_id"
+    content="666049061231-8ok5p9b67anl89i2ug961e2hsd1k3id0.apps.googleusercontent.com" />
 
-    <title>Document</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">ToDo List</a>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="main.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/litera/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-pLgJ8jZ4aoPja/9zBSujjzs7QbkTKvKw1+zfKuumQF9U+TH3xv09UUsRI52fS+A6" crossorigin="anonymous" />
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <div id="buttonloggedin">
-              <a id="toggleadd" style="cursor: pointer;">Add Task</a>
-              <!-- <a id="togglelogout" style="cursor: pointer;">Log Out</a> -->
-              <a id="togglelogout" href="#" onclick="signOut();">Sign out</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <div id="buttonloggedout">
-              <a id="toggleregister" style="cursor: pointer;">Register</a>
-              <a id="togglesignin" style="cursor: pointer;">Sign In</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div
-        id="buttonloggedoutgoogle"
-        class="g-signin2"
-        data-onsuccess="onSignIn"
-      ></div>
-    </nav>
+  <title>Document</title>
+</head>
 
-    <h1>ToDo list</h1>
-    <p>Welcome</p>
-    <p id="message"></p>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">ToDo List</a>
 
-    <!-- <div id="buttonloggedout">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <div id="buttonloggedin">
+            <a id="toggleadd" style="cursor: pointer;">Add Task</a>
+            <!-- <a id="togglelogout" style="cursor: pointer;">Log Out</a> -->
+            <a id="togglelogout" href="#" onclick="signOut();">Sign out</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <div id="buttonloggedout">
+            <a id="toggleregister" style="cursor: pointer;">Register</a>
+            <a id="togglesignin" style="cursor: pointer;">Sign In</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div id="buttonloggedoutgoogle" class="g-signin2" data-onsuccess="onSignIn"></div>
+  </nav>
+
+  <h1>ToDo list</h1>
+  <p>Welcome</p>
+  <div id="message"></div>
+
+  <!-- <div id="buttonloggedout">
       <button id="toggleregister">Register</button>
       <button id="togglesignin">Sign In</button>
     </div>
@@ -60,7 +52,7 @@
       <button id="toggleadd">Add Task</button>
     </div> -->
 
-    <!-- <form id="registerform">
+  <!-- <form id="registerform">
       <label>Email</label>
       <input type="text" name="email" id="emailreg" />
       <label>Username</label>
@@ -70,28 +62,23 @@
       <button type="submit">Register</button>
     </form> -->
 
-    <form id="registerform">
-      <div class="form-group">
-        <label>Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="emailreg"
-          aria-describedby="emailHelp"
-        />
-      </div>
-      <div class="form-group">
-        <label>Username</label>
-        <input type="text" class="form-control" id="userreg" />
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" id="passwordreg" />
-      </div>
-      <button type="submit" class="btn btn-primary">Register</button>
-    </form>
+  <form id="registerform">
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control" id="emailreg" aria-describedby="emailHelp" />
+    </div>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-control" id="userreg" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" id="passwordreg" />
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
 
-    <!-- <form id="signinform">
+  <!-- <form id="signinform">
       <label>Email</label>
       <input type="text" name="email" id="emailinput" />
       <label>Password</label>
@@ -99,40 +86,35 @@
       <button type="submit">Sign In</button>
     </form> -->
 
-    <form id="signinform">
-      <div class="form-group">
-        <label>Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="emailinput"
-          aria-describedby="emailHelp"
-        />
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" id="passwordinput" />
-      </div>
-      <button type="submit" class="btn btn-primary">Sign In</button>
-    </form>
+  <form id="signinform">
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control" id="emailinput" aria-describedby="emailHelp" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" id="passwordinput" />
+    </div>
+    <button type="submit" class="btn btn-primary">Sign In</button>
+  </form>
 
-    <form id="addform">
-      <div class="form-group">
-        <label>Title</label>
-        <input type="text" class="form-control" id="titleinput" />
-      </div>
-      <div class="form-group">
-        <label>Description</label>
-        <input type="text" class="form-control" id="descinput" />
-      </div>
-      <div class="form-group">
-        <label>Due Date</label>
-        <input type="date" class="form-control" id="dateinput" />
-      </div>
-      <button type="submit" class="btn btn-primary">Add</button>
-    </form>
+  <form id="addform">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" id="titleinput" />
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input type="text" class="form-control" id="descinput" />
+    </div>
+    <div class="form-group">
+      <label>Due Date</label>
+      <input type="date" class="form-control" id="dateinput" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
 
-    <!-- <form id="editform">
+  <!-- <form id="editform">
         <label>Title</label>
         <input type="text" name="title" id="titleupt" value="${todo.title}"/>
         <label>Description</label>
@@ -149,7 +131,7 @@
         <button id="submitupdate" value="${todo.id}" >Edit</button>
       </form> -->
 
-    <!-- <form id="addform">
+  <!-- <form id="addform">
       <label>Title</label>
       <input type="text" name="title" id="titleinput" />
       <label>Description</label>
@@ -159,42 +141,41 @@
       <button type="submit">Add</button>
     </form> -->
 
-    <div id="editdiv"></div>
+  <div id="editdiv"></div>
 
-    <table class="table" id="todotable"></table>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      function onSignIn(googleUser) {
-        var id_token = googleUser.getAuthResponse().id_token;
-        $.ajax({
-          type: "POST",
-          url: "http://localhost:3000/google-sign-in",
-          data: {
-            token: id_token
-          },
-          statusCode: {
-            200: function(response) {
-              console.log(response);
-              localStorage.setItem("access_token", response.access_token);
-              refreshPage();
-              $("#message").text("Successfuly Signed In");
-            }
+  <table class="table" id="todotable"></table>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>
+    function onSignIn(googleUser) {
+      var id_token = googleUser.getAuthResponse().id_token;
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:3000/google-sign-in",
+        data: {
+          token: id_token
+        },
+        statusCode: {
+          200: function (response) {
+            console.log(response);
+            localStorage.setItem("access_token", response.access_token);
+            refreshPage();
+            $("#message").text("Successfuly Signed In");
           }
-        });
-      }
+        }
+      });
+      $('#message').html('')
+    }
 
-      function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function() {
-          console.log("User signed out.");
-          refreshPage();
-        });
-      }
-    </script>
-  </body>
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log("User signed out.");
+        refreshPage();
+      });
+    }
+  </script>
+</body>
+
 </html>

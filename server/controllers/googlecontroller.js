@@ -43,7 +43,7 @@ class Google {
 
             })
             .catch(err => {
-                res.status(400).text(err)
+                res.status(500).text({ msg: 'Internal Server Error', err })
                 console.log(err)
             })
     }

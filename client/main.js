@@ -16,6 +16,8 @@ $(document).ready(function () {
             $("#registerform").hide();
             formreghidden = true;
         }
+        $('#message').html('')
+        $('#registerform')[0].reset()
     });
 
     // button sign in
@@ -29,6 +31,8 @@ $(document).ready(function () {
             $("#signinform").hide();
             formsighidden = true;
         }
+        $('#message').html('')
+        $('#signinform')[0].reset()
     });
 
     //log out
@@ -36,8 +40,8 @@ $(document).ready(function () {
         e.preventDefault();
         localStorage.removeItem("access_token");
         $(".todolist").empty();
-        $("#message").text("Successfuly Signed Out");
         refreshPage();
+        $("#message").html(`<div class="alert alert-success" role="alert">Successfuly Signed Out</div>`)
     });
 
     //toggle Add
@@ -68,12 +72,12 @@ $(document).ready(function () {
                 $("#passwordreg").val("");
                 $("#userreg").val("");
                 localStorage.setItem("access_token", response.access_token);
-                $("#message").text("Successfuly Registered and Signed In");
                 refreshPage();
+                $("#message").html(`<div class="alert alert-success" role="alert">Successfuly Registered and Signed In</div>`)
             })
             .fail(err => {
                 console.log(err);
-                $("#message").text(err.responseJSON.message);
+                $("#message").html(`<div class="alert alert-danger" role="alert">${err.responseJSON.msg}</div>`)
             });
     });
 
@@ -91,12 +95,12 @@ $(document).ready(function () {
                 $("#emailinput").val("");
                 $("#passwordinput").val("");
                 localStorage.setItem("access_token", response.access_token);
-                $("#message").text("Successfuly Signed In");
                 refreshPage();
+                $("#message").html(`<div class="alert alert-success" role="alert">Successfuly Signed In</div>`)
             })
             .fail(err => {
                 console.log(err);
-                $("#message").text(err.responseJSON.message);
+                $("#message").html(`<div class="alert alert-danger" role="alert">${err.responseJSON.msg}</div>`)
             });
     });
 
@@ -112,12 +116,12 @@ $(document).ready(function () {
             }
         })
             .done(result => {
-                $("#message").text("Data deleted");
                 refreshPage();
+                $("#message").html(`<div class="alert alert-success" role="alert">ToDo Task Deleted</div>`)
             })
             .fail(err => {
                 console.log(err);
-                $("#message").text(err.responseJSON.message);
+                $("#message").html(`<div class="alert alert-danger" role="alert">${err.responseJSON.msg}</div>`)
             });
     });
 
@@ -152,7 +156,9 @@ $(document).ready(function () {
                     </div>
                     <select class="custom-select" id="#statusupt">
                         <option name="statuspct" value="0%" ${todo.status == "0%" ? "selected" : ""}>0%</option>
+                        <option name="statuspct" value="25%"${todo.status == "25%" ? "selected" : ""}>25%</option>
                         <option name="statuspct" value="50%"${todo.status == "50%" ? "selected" : ""}>50%</option>
+                        <option name="statuspct" value="75%"${todo.status == "75%" ? "selected" : ""}>75%</option>
                         <option name="statuspct" value="100%"${todo.status == "100%" ? "selected" : ""}>100%</option>
                     </select>
                     </div>
@@ -165,7 +171,7 @@ $(document).ready(function () {
             })
             .fail(err => {
                 console.log(err);
-                $("#message").text(err.responseJSON.message);
+                $("#message").html(`<div class="alert alert-danger" role="alert">${err.responseJSON.msg}</div>`)
             });
     });
 
@@ -187,12 +193,12 @@ $(document).ready(function () {
             data: { title, description, due_date, status }
         })
             .done(result => {
-                $("#message").text("Data updated");
                 refreshPage();
+                $("#message").html(`<div class="alert alert-success" role="alert">Task Updated</div>`)
             })
             .fail(err => {
                 console.log(err);
-                $("#message").text(err.responseJSON.message);
+                $("#message").html(`<div class="alert alert-danger" role="alert">${err.responseJSON.msg}</div>`)
             });
     });
 
@@ -215,24 +221,18 @@ $(document).ready(function () {
             }
         })
             .done(function (response) {
-                $("#titleinput").val("");
-                $("#descinput").val("");
-                $("#dateinput").val("");
-                $("#message").text("Successfuly Added To List");
+                // $("#titleinput").val("");
+                // $("#descinput").val("");
+                // $("#dateinput").val("");
+                $('#addform')[0].reset()
                 refreshPage();
+                $("#message").html(`<div class="alert alert-success" role="alert">Successfuly Added Task to List</div>`)
             })
             .fail(err => {
                 console.log(err);
-                $("#message").text(err.responseJSON.message);
+                $("#message").html(`<div class="alert alert-danger" role="alert">${err.responseJSON.msg}</div>`)
             });
     });
-
-    //selected
-    //   $("#todos").click(function() {
-    //     $("#todos").css("background-color", "");
-    //     $(this).css("background-color", "yellow");
-    //     selected = $(this);
-    //   });
 
 
 });
@@ -256,6 +256,9 @@ function refreshPage() {
     $("#signinform").hide();
     $("#addform").hide();
     $("#editdiv").html("");
+    $('#registerform')[0].reset()
+    $('#signinform')[0].reset()
+    $('#message').html('')
     //selected = null;
 }
 
@@ -297,6 +300,6 @@ function getlist() {
         })
         .fail(err => {
             console.log(err);
-            $("#message").text(err.responseJSON.message);
+            $("#message").html(`<div class="alert alert-danger" role="alert">${err.responseJSON.msg}</div>`)
         });
 }
